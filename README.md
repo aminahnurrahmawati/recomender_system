@@ -5,6 +5,6 @@
 * We used the **Sklearn** library to train and process our Machine Learning Model
 
   # Requirements
-* Python 3.6 or above
+* <span style="background-color: #f0f0f0; padding: 5px;">Python 3.6 or above</span>
 * Install required libraries: pip install -r requirements.txt
 
