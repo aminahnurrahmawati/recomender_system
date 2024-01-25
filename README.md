@@ -6,5 +6,5 @@
 
   # Requirements
 * <span>Python 3.6 or above</span>
-* Install required libraries: pip install -r requirements.txt
+* Install required libraries: pip install **-r requirements.txt**
 
