@@ -1,0 +1,5 @@
+Content-based filtering in recommender systems recommends items to users based on their previous actions or preferences. 
+It analyzes item metadata to identify items with similar characteristics to those that the user has interacted with before. 
+This approach examines the characteristics of the items users have expressed an interest in to recommend similar items, 
+unlike collaborative filtering, which finds similarities among users. 
+Content-based filtering is widely used in e-commerce, news feeds, music, and movie recommendations.

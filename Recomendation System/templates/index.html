@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommender App</title>
+    <style>
+        p {
+            color: #484948; /* Ganti dengan kode warna hexadecimal yang diinginkan */
+            font-weight: bold;
+            size: 16;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0; /* Menghilangkan margin bawaan browser */
+            padding: 0; /* Menghilangkan padding bawaan browser */
+            background-image: url('static/violet_pngtree.jpg') ;
+            background-size: cover; /* Menutupi seluruh area dengan gambar */
+            background-position: center; /* Menengahkan gambar */
+            background-repeat: no-repeat; /* Menghindari pengulangan gambar */
+            height: 100vh; /* Mengatur tinggi 100% dari viewport height */
+            display: flex;
+            align-items: center; /* Menengahkan konten secara vertikal */
+            justify-content: center; /* Menengahkan konten secara horizontal */
+            color: black; /* Warna teks untuk kontras dengan gambar */
+        }
+
+        /* Menerapkan gaya tambahan untuk konten dalam halaman */
+        .content {
+            text-align: center;
+        }
+
+        .image-container {
+            display: flex; /* Menggunakan flexbox untuk mengatur tata letak */
+            justify-content: center; /* Menengahkan elemen di sepanjang sumbu utama (horizontal) */
+            align-items: center; /* Menengahkan elemen di sepanjang sumbu silang (vertical) */
+            gap: 20px; /* Memberikan ruang antara gambar-gambar */
+            margin-top: 20px;
+        }
+
+        .container {
+            text-align: right; /* Menempatkan kontainer (dan tabel) di sebelah kanan */
+            max-width: 400px; /* Menentukan lebar maksimum kontainer */
+            margin-top: 20px;
+        }
+
+        footer{
+            text-align: left;
+        }
+
+        table.data {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table.data, th, td {
+            border: 1px solid #ddd;
+            padding: 4px; /* Mengurangi padding untuk ukuran yang lebih kecil */
+            text-align: left;
+        }
+
+        td{
+            background-color: lavender;
+        }
+
+        th {
+            background-color: lavender;
+            margin-right: 10px;
+        }
+
+        .image-container img {
+            max-width: 50%; /* Membuat gambar responsif */
+            height: auto;
+        }
+        h1{
+            background-color: plum;
+        }
+
+        h2{
+            background-color: plum;
+        }
+
+        ul {
+            background-color: plum;
+        }
+
+    </style>
+    <script>
+        function updateClock() {
+            var now = new Date();
+            var dateElement = document.getElementById('current-date');
+            var timeElement = document.getElementById('current-time');
+
+            // Mendapatkan tanggal
+            var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            var formattedDate = now.toLocaleDateString('en-US', options);
+
+            // Mendapatkan jam
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // Jika jam adalah 0, atur menjadi 12
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            var formattedTime = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
+
+            // Menampilkan tanggal dan jam di elemen HTML
+            dateElement.innerHTML = formattedDate;
+            timeElement.innerHTML = formattedTime;
+        }
+
+        // Memanggil fungsi updateClock setiap detik
+        setInterval(updateClock, 1000);
+    </script>
+</head>
+<body bgcolor=#D6CFC7>
+    <center>
+    <h1>Recommender App</h1>
+    <marquee behavior="scroll" direction="left">
+        Selamat Datang di Recomender App, Silahkan Masukkan ID anda untuk mendapatkan rekomendasi product yang sesuai dengan minat anda :-)
+    </marquee>
+    <p>Date : <span id="current-date"></span></p>
+    <p>Time : <span id="current-time"></span></p>
+    <form action="/recommend" method="post">
+        <label for="customer_id">Customer ID:</label>
+        <input type="text" name="customer_id" required><br>
+
+        <input type="submit" value="Recommend">
+    </form>
+    <div class="container">
+        <h2>Data Product yang Tersedia</h2>
+        {{ tables[0]|safe }}
+
+    {% if top_products %}
+        <h2>Top Recommended Products untuk Anda :</h2>
+        <ul>
+            {% for product in top_products %}
+                <li>Product ID: {{ product.product_id }}, Category: {{ product.category }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if error_message %}
+        <p style="color: lightcoral;">{{ error_message }}</p>
+    {% endif %}
+
+    
+</center>
+<div class="footer">
+    &copy; Indonesia 2024
+</div>
+</body>
+</html>
