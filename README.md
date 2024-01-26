@@ -7,6 +7,6 @@
 * I used https://www.pythonanywhere.com/ as free open source hosting for my website, you can fit the website resolution by pressing ctrl- (zoom out) if the resolution is too big for you or if there is part of the website that you cannot see.
 
   # Requirements
-* <span>Python 3.6 or above</span>
+* <span>Python 3.9 or above</span>
 * Install required libraries: pip install **-r requirements.txt**
 
