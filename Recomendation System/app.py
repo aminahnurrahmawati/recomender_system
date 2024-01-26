@@ -26,8 +26,8 @@ model.fit(train_data)
 @app.route('/')
 def index(): #the function name is the same as html file name
     selected_columns = ['product_id', 'category', 'price', 'ratings']
-    selected_df = df[selected_columns].head(5)
-    return render_template('index.html', tables=[selected_df.to_html(classes='data')], titles=selected_df.columns.values) #to be shown on website
+    selected_df = df[selected_columns].head(10)
+    return render_template('index.html', tables=[selected_df.to_html(classes='data')], titles=selected_df.columns.values, recommended_products=False) #to be shown on website
 
 def get_current_date():
     now = datetime.now()
@@ -61,12 +61,12 @@ def recommend():
         recommended_product_indices = indices.flatten()
 
         # Ambil informasi produk yang direkomendasikan
-        recommended_products = df.iloc[recommended_product_indices]
+        recommended_products = df.iloc[recommended_product_indices].head(5) #top 5 products
 
         # Konversi ke format JSON
         recommended_products_json = recommended_products.to_json(orient='records')
 
-        return render_template('index.html', recommended_products=json.loads(recommended_products_json))
+        return render_template('result.html', recommended_products=json.loads(recommended_products_json)) #show result of recommendation on result.html
 
     # Jika tidak ada input atau data pelanggan ditemukan
     return render_template('index.html')

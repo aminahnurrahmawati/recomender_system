@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommender App</title>
+    <style>
+        p {
+            color: #484948; /* Ganti dengan kode warna hexadecimal yang diinginkan */
+            font-weight: bold;
+            size: 16;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0; /* Menghilangkan margin bawaan browser */
+            padding: 0; /* Menghilangkan padding bawaan browser */
+            background-image: url('static/violet_pngtree.jpg') ;
+            background-size: cover; /* Menutupi seluruh area dengan gambar */
+            background-position: center; /* Menengahkan gambar */
+            background-repeat: no-repeat; /* Menghindari pengulangan gambar */
+            height: 100vh; /* Mengatur tinggi 100% dari viewport height */
+            display: flex;
+            align-items: center; /* Menengahkan konten secara vertikal */
+            justify-content: center; /* Menengahkan konten secara horizontal */
+            color: black; /* Warna teks untuk kontras dengan gambar */
+        }
+
+        /* Menerapkan gaya tambahan untuk konten dalam halaman */
+        .content {
+            text-align: center;
+        }
+
+        .image-container {
+            display: flex; /* Menggunakan flexbox untuk mengatur tata letak */
+            justify-content: center; /* Menengahkan elemen di sepanjang sumbu utama (horizontal) */
+            align-items: center; /* Menengahkan elemen di sepanjang sumbu silang (vertical) */
+            gap: 20px; /* Memberikan ruang antara gambar-gambar */
+            margin-top: 20px;
+        }
+
+        .container {
+            text-align: right; /* Menempatkan kontainer (dan tabel) di sebelah kanan */
+            max-width: 400px; /* Menentukan lebar maksimum kontainer */
+            margin-top: 20px;
+        }
+
+        footer{
+            text-align: left;
+        }
+
+        table.data {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table.data, th, td {
+            border: 1px solid #ddd;
+            padding: 4px; /* Mengurangi padding untuk ukuran yang lebih kecil */
+            text-align: left;
+        }
+
+        td{
+            background-color: lavender;
+        }
+
+        th {
+            background-color: lavender;
+            margin-right: 10px;
+        }
+
+        .image-container img {
+            max-width: 50%; /* Membuat gambar responsif */
+            height: auto;
+        }
+        h1{
+            background-color: plum;
+        }
+
+        h2{
+            text-align: center;
+            width: 200%;
+            background-color: plum;
+        }
+
+        ul {
+            background-color: plum;
+        }
+
+    </style>
+    <script>
+        function updateClock() {
+            var now = new Date();
+            var dateElement = document.getElementById('current-date');
+            var timeElement = document.getElementById('current-time');
+
+            // Mendapatkan tanggal
+            var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            var formattedDate = now.toLocaleDateString('en-US', options);
+
+            // Mendapatkan jam
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // Jika jam adalah 0, atur menjadi 12
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            var formattedTime = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
+
+            // Menampilkan tanggal dan jam di elemen HTML
+            dateElement.innerHTML = formattedDate;
+            timeElement.innerHTML = formattedTime;
+        }
+
+        // Memanggil fungsi updateClock setiap detik
+        setInterval(updateClock, 1000);
+    </script>
+</head>
+<body bgcolor=#D6CFC7>
+    <center>
+    <h1>Recommender App</h1>
+    <marquee behavior="scroll" direction="left">
+        Welcome to the Recomender App, please enter your ID to get product recommendations that suit your interests
+    </marquee>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Recommendation</title>
+</head>
+<body>
+    <div class="container">
+    {% if error_message %}
+    <div id="error_message">
+        {{ error_message }}
+    </div>
+    {% endif %}
+
+    {% if recommended_products %}
+    <div id="recommendations">
+        <h2>Top 5 Recommended Products For You:</h2>
+        <table>
+            <tr>
+                <th>Product ID</th>
+                <th>Image</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Ratings</th>
+            </tr>
+            {% for product in recommended_products %}
+            <tr>
+                <td>{{ product.product_id }}</td>
+                <td>
+                    {% if product.category == 'Electronics' %}
+                        <img src="static/ecommerce-3562191_1280.jpg" alt="Product Image 1" style="width:100px;height:100px;">
+                    {% elif product.category == 'Beauty' %}
+                        <img src="static/makeup-things-to-keep-in-mind.jpg" alt="Product Image 2" style="width:100px;height:100px;">
+                    {% elif product.category == 'Home & Kitchen' %}
+                        <img src="static/homeKitchen.webp" alt="Product Image 2" style="width:100px;height:100px;">
+                    {% elif product.category == 'Clothing' %}
+                        <img src="static/clothing-store.jpg" alt="Product Image 2" style="width:100px;height:100px;">
+                    
+                        {% else %}
+                        <img src="static/ecommerce-3562191_1280.jpg" alt="Default Product Image" style="width:100px;height:100px;">
+                    {% endif %}
+                </td>
+                
+                <td>{{ product.category }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.ratings }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+</center>
+<div class="footer">
+    &copy; Indonesia 2024
+    <p>Date : <span id="current-date"></span></p>
+    <p>Time : <span id="current-time"></span></p>
+</div>
+</body>
+</html>

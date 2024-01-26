@@ -78,6 +78,7 @@
         }
 
         h2{
+            text-align: center;
             background-color: plum;
         }
 
@@ -120,10 +121,8 @@
     <center>
     <h1>Recommender App</h1>
     <marquee behavior="scroll" direction="left">
-        Selamat Datang di Recomender App, Silahkan Masukkan ID anda untuk mendapatkan rekomendasi product yang sesuai dengan minat anda :-)
+        Welcome to the Recomender App, please enter your ID to get product recommendations that suit your interests
     </marquee>
-    <p>Date : <span id="current-date"></span></p>
-    <p>Time : <span id="current-time"></span></p>
     <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -138,6 +137,10 @@
         <input type="text" id="customer_id" name="customer_id">
         <button type="submit">Get Recommendations</button>
     </form>
+    <div class="container">
+        <h2>Available Products</h2>
+        {{ tables[0]|safe }}
+        <img src="static/ecommerce-3562191_1280.jpg" alt="Default Product Image" style="width:500px;height:100px;float:left;">
 
     {% if error_message %}
     <div id="error_message">
@@ -147,10 +150,11 @@
 
     {% if recommended_products %}
     <div id="recommendations">
-        <h2>Recommended Products:</h2>
+        <h2>Top 5 Recommended Products For You:</h2>
         <table>
             <tr>
                 <th>Product ID</th>
+                <th>Image</th>
                 <th>Category</th>
                 <th>Price</th>
                 <th>Ratings</th>
@@ -158,6 +162,21 @@
             {% for product in recommended_products %}
             <tr>
                 <td>{{ product.product_id }}</td>
+                <td>
+                    {% if product.category == 'Electronics' %}
+                        <img src="static/ecommerce-3562191_1280.jpg" alt="Product Image 1" style="width:100px;height:100px;">
+                    {% elif product.category == 'Beauty' %}
+                        <img src="static/makeup-things-to-keep-in-mind.jpg" alt="Product Image 2" style="width:100px;height:100px;">
+                    {% elif product.category == 'Home & Kitchen' %}
+                        <img src="static/homeKitchen.webp" alt="Product Image 2" style="width:100px;height:100px;">
+                    {% elif product.category == 'Clothing' %}
+                        <img src="static/clothing-store.jpg" alt="Product Image 2" style="width:100px;height:100px;">
+                    
+                        {% else %}
+                        <img src="static/ecommerce-3562191_1280.jpg" alt="Default Product Image" style="width:100px;height:100px;">
+                    {% endif %}
+                </td>
+                
                 <td>{{ product.category }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.ratings }}</td>
@@ -169,6 +188,8 @@
 </center>
 <div class="footer">
     &copy; Indonesia 2024
+    <p>Date : <span id="current-date"></span></p>
+    <p>Time : <span id="current-time"></span></p>
 </div>
 </body>
 </html>
