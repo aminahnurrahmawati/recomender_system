@@ -8,6 +8,6 @@
 * The final dataset that I used after I do some manipulation was ```FixedDataset.csv``` which you can find in this repo.
 
   # Requirements
-* ```Python``` 3.9 or above
+* ```Python 3.9``` or above
 * Install required libraries: pip install ```-r requirements.txt```
 
